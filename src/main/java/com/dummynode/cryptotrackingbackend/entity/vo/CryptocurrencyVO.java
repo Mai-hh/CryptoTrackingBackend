@@ -1,3 +1,6 @@
+/**
+ * HuaiHao Mo
+ */
 package com.dummynode.cryptotrackingbackend.entity.vo;
 
 import lombok.AllArgsConstructor;

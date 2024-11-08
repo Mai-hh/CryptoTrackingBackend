@@ -1,3 +1,6 @@
+/**
+ * HuaiHao Mo
+ */
 package com.dummynode.cryptotrackingbackend.entity.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;

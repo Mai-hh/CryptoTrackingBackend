@@ -1,3 +1,6 @@
+/**
+ * HuaiHao Mo
+ */
 package com.dummynode.cryptotrackingbackend.service;
 
 import com.dummynode.cryptotrackingbackend.entity.vo.CryptocurrencyVO;

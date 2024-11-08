@@ -1,3 +1,6 @@
+/**
+ * Christopher Park
+ */
 package com.dummynode.cryptotrackingbackend.entity.model;
 
 import jakarta.persistence.Column;
