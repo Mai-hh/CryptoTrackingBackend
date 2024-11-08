@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface CryptocurrencyService {
 
-    List<CryptocurrencyVO> getLatestCryptocurrencies();
+    ApiResponse<List<CryptocurrencyVO>> getLatestCryptocurrencies();
 }

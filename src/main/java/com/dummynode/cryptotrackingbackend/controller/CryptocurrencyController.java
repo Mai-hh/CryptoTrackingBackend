@@ -28,9 +28,6 @@ public class CryptocurrencyController {
 
     @GetMapping("/cryptocurrencies")
     public ApiResponse<List<CryptocurrencyVO>> getCryptocurrencies() {
-        List<CryptocurrencyVO> data = cryptocurrencyService.getLatestCryptocurrencies();
-        return new ApiResponse<>(
-                200, "OK", data, null
-        );
+        return cryptocurrencyService.getLatestCryptocurrencies();
     }
 }
