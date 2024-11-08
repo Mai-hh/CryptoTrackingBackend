@@ -1,4 +1,4 @@
-package com.dummynode.cryptotrackingbackend.Entity;
+package com.dummynode.cryptotrackingbackend.entity.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
