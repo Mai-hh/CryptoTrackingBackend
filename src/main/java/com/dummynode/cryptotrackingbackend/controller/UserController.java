@@ -24,7 +24,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping
+    @PostMapping("/registration")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         try {
             User createdUser = userService.createUser(user);
@@ -34,7 +34,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/info/{userId}")
     public ResponseEntity<User> getUserById(@PathVariable String userId) {
         return userService.getUserById(userId)
                 .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
