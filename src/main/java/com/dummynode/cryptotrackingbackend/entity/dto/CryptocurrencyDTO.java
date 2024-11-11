@@ -51,7 +51,7 @@ public class CryptocurrencyDTO {
         @JsonProperty("tags")
         private List<String> tags;
         @JsonProperty("max_supply")
-        private Long maxSupply;
+        private BigDecimal maxSupply;
         @JsonProperty("circulating_supply")
         private double circulatingSupply;
         @JsonProperty("total_supply")
