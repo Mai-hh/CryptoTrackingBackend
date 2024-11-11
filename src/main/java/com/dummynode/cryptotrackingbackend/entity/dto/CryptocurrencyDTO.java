@@ -6,6 +6,7 @@ package com.dummynode.cryptotrackingbackend.entity.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -94,29 +95,29 @@ public class CryptocurrencyDTO {
     @Data
     public static class Usd {
         @JsonProperty("price")
-        private double price;
+        private BigDecimal price;
         @JsonProperty("volume_24h")
-        private double volume24h;
+        private BigDecimal volume24h;
         @JsonProperty("volume_change_24h")
-        private double volumeChange24h;
+        private BigDecimal volumeChange24h;
         @JsonProperty("percent_change_1h")
-        private double percentChange1h;
+        private BigDecimal percentChange1h;
         @JsonProperty("percent_change_24h")
-        private double percentChange24h;
+        private BigDecimal percentChange24h;
         @JsonProperty("percent_change_7d")
-        private double percentChange7d;
+        private BigDecimal percentChange7d;
         @JsonProperty("percent_change_30d")
-        private double percentChange30d;
+        private BigDecimal percentChange30d;
         @JsonProperty("percent_change_60d")
-        private double percentChange60d;
+        private BigDecimal percentChange60d;
         @JsonProperty("percent_change_90d")
-        private double percentChange90d;
+        private BigDecimal percentChange90d;
         @JsonProperty("market_cap")
-        private double marketCap;
+        private BigDecimal marketCap;
         @JsonProperty("market_cap_dominance")
-        private double marketCapDominance;
+        private BigDecimal marketCapDominance;
         @JsonProperty("fully_diluted_market_cap")
-        private double fullyDilutedMarketCap;
+        private BigDecimal fullyDilutedMarketCap;
         @JsonProperty("tvl")
         private Object tvl;
         @JsonProperty("last_updated")

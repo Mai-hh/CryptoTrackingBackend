@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,13 +18,13 @@ public class CryptocurrencyVO {
 
     private String symbol;
 
-    private Double price;
+    private BigDecimal price;
 
-    private Double percentChange24h;
+    private BigDecimal percentChange24h;
 
-    private Double marketCap;
+    private BigDecimal marketCap;
 
-    private Double volume24h;
+    private BigDecimal volume24h;
 
-    private Long maxSupply;
+    private BigDecimal maxSupply;
 }
