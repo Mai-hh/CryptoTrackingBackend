@@ -5,6 +5,7 @@ package com.dummynode.cryptotrackingbackend.controller;
 
 
 import com.dummynode.cryptotrackingbackend.entity.vo.CryptocurrencyVO;
+import com.dummynode.cryptotrackingbackend.entity.vo.wrapper.CryptocurrencyVOWrapper;
 import com.dummynode.cryptotrackingbackend.service.ApiResponse;
 import com.dummynode.cryptotrackingbackend.service.CryptocurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class CryptocurrencyController {
     }
 
     @GetMapping("/cryptocurrencies")
-    public ApiResponse<List<CryptocurrencyVO>> getCryptocurrencies() {
+    public ApiResponse<List<CryptocurrencyVOWrapper>> getCryptocurrencies() {
         return cryptocurrencyService.getLatestCryptocurrencies();
     }
 }
