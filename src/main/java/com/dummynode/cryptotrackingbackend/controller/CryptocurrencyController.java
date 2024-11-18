@@ -4,7 +4,6 @@
 package com.dummynode.cryptotrackingbackend.controller;
 
 
-import com.dummynode.cryptotrackingbackend.entity.vo.CryptocurrencyVO;
 import com.dummynode.cryptotrackingbackend.entity.vo.wrapper.CryptocurrencyVOWrapper;
 import com.dummynode.cryptotrackingbackend.service.ApiResponse;
 import com.dummynode.cryptotrackingbackend.service.CryptocurrencyService;
