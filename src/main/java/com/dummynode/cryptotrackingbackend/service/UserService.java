@@ -4,8 +4,8 @@
 package com.dummynode.cryptotrackingbackend.service;
 
 import com.dummynode.cryptotrackingbackend.entity.model.User;
+import com.dummynode.cryptotrackingbackend.entity.model.Wallet;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +21,6 @@ public interface UserService {
 
     void deleteUser(String userId);
 
-    BigDecimal getWalletBalance(String userId);
+    List<Wallet> getUserWallets(String userId);
 
 }

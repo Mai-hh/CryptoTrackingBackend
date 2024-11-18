@@ -5,6 +5,7 @@ package com.dummynode.cryptotrackingbackend.controller;
 
 
 import com.dummynode.cryptotrackingbackend.entity.model.User;
+import com.dummynode.cryptotrackingbackend.entity.model.Wallet;
 import com.dummynode.cryptotrackingbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -69,11 +70,21 @@ public class UserController {
         }
     }
 
-    @GetMapping("{userId}/wallet/balance")
-    public ResponseEntity<BigDecimal> getWalletBalance(@PathVariable String userId) {
+    @GetMapping("{userId}/balance")
+    public ResponseEntity<BigDecimal> getBalance(@PathVariable String userId) {
         return userService.getUserById(userId)
                 .map(user -> new ResponseEntity<>(user.getBalance(), HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("{userId}/wallet/cryptocurrencies")
+    public ResponseEntity<List<Wallet>> getWallet(@PathVariable String userId) {
+        List<Wallet> wallets = userService.getUserWallets(userId);
+
+        if (wallets != null)
+            return new ResponseEntity<>(wallets, HttpStatus.OK);
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }
