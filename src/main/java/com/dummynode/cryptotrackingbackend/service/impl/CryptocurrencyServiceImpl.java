@@ -4,6 +4,7 @@
 package com.dummynode.cryptotrackingbackend.service.impl;
 
 import com.dummynode.cryptotrackingbackend.entity.dto.CryptocurrencyDTO;
+import com.dummynode.cryptotrackingbackend.entity.vo.CryptocurrencyVO;
 import com.dummynode.cryptotrackingbackend.entity.vo.wrapper.CryptocurrencyVOWrapper;
 import com.dummynode.cryptotrackingbackend.service.ApiResponse;
 import com.dummynode.cryptotrackingbackend.service.CryptocurrencyService;
@@ -26,18 +27,17 @@ public class CryptocurrencyServiceImpl implements CryptocurrencyService {
     }
 
     @Override
-    public ApiResponse<List<CryptocurrencyVOWrapper>> getLatestCryptocurrencies() {
+    public ApiResponse<List<CryptocurrencyVO>> getLatestCryptocurrencies() {
         String testUrl = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1&limit=100&sort=market_cap&cryptocurrency_type=all&tag=all";
         CryptocurrencyDTO cryptocurrencyDTO = restTemplate.getForObject(testUrl, CryptocurrencyDTO.class);
         assert cryptocurrencyDTO != null;
         List<CryptocurrencyDTO.Cryptocurrency> data = cryptocurrencyDTO.getData();
 
-        List<CryptocurrencyVOWrapper> cryptocurrencyVOList = data.stream()
+        List<CryptocurrencyVO> cryptocurrencyVOList = data.stream()
                 .map(Util::toCryptocurrencyVO)
-                .map(CryptocurrencyVOWrapper::toWrapper)
                 .toList();
 
-        ApiResponse<List<CryptocurrencyVOWrapper>> response = new ApiResponse<>();
+        ApiResponse<List<CryptocurrencyVO>> response = new ApiResponse<>();
         response.setCode(200);
         response.setData(cryptocurrencyVOList);
         return response;
