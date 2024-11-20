@@ -40,6 +40,20 @@ public class TransactionSell {
     @Column(name = "modified_at", nullable = false)
     private LocalDateTime modifiedAt;
 
+    @Column(name = "is_active", nullable = false)
+    private boolean isActive;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        this.modifiedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.modifiedAt = LocalDateTime.now();
+    }
+
     @Override
     public String toString() {
         return "TransactionSell{" +

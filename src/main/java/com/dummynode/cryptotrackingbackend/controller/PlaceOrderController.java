@@ -23,13 +23,14 @@ public class PlaceOrderController {
 
     @Autowired
     PlaceOrderService placeOrderService;
-    @PostMapping("/place-order")
-    public ResponseEntity PlaceOrder(@RequestBody OrderDTO orderDTO, HttpServletRequest request){
 
-        if(orderDTO.getType()==0){
+    @PostMapping("/place-order")
+    public ResponseEntity<Void> PlaceOrder(@RequestBody OrderDTO orderDTO, HttpServletRequest request) {
+
+        if (orderDTO.getType() == 0) {
             logger.info("order type: sell");
             placeOrderService.sell(orderDTO);
-        }else{
+        } else {
             logger.info("order type: buy");
             placeOrderService.buy(orderDTO);
         }

@@ -1,28 +1,33 @@
 package com.dummynode.cryptotrackingbackend.componet.order;
 
-public class SellOrder implements Order {
-    private final double quantity;
-    private final double price;
+import com.dummynode.cryptotrackingbackend.entity.model.TransactionSell;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-    public SellOrder(double quantity, double price) {
-        this.quantity = quantity;
-        this.price = price;
-    }
+import java.math.BigDecimal;
+
+@Data
+@AllArgsConstructor
+public class SellOrder implements Order {
+
+    private final String userId;
+    private final Long transactionId;
+    private final String symbol;
+    private final Integer quantity;
+    private final BigDecimal price;
 
     @Override
     public OrderType getType() {
         return OrderType.SELL;
     }
 
-    @Override
-    public double getQuantity() {
-        return quantity;
+    public static SellOrder from(TransactionSell transactionSell) {
+        return new SellOrder(
+                transactionSell.getUser().getUserId(),
+                transactionSell.getTransactionId(),
+                transactionSell.getSymbol(),
+                transactionSell.getQuantity(),
+                transactionSell.getDealPrice()
+        );
     }
-
-    @Override
-    public double getPrice() {
-        return price;
-    }
-
-    // 其他卖出订单特定的方法...
 }

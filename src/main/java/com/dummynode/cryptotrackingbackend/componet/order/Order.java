@@ -1,11 +1,13 @@
 package com.dummynode.cryptotrackingbackend.componet.order;
 
+import java.math.BigDecimal;
+
 public interface Order {
 
     OrderType getType();
 
-    double getQuantity();
+    Integer getQuantity();
 
-    double getPrice();
+    BigDecimal getPrice();
 
 }

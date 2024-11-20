@@ -7,6 +7,8 @@ import com.dummynode.cryptotrackingbackend.entity.dto.CryptocurrencyDTO;
 import com.dummynode.cryptotrackingbackend.entity.vo.CryptocurrencyVO;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Util {
 
@@ -40,7 +42,18 @@ public class Util {
                 cryptocurrency.getQuote().getUsd().getPercentChange24h(),
                 cryptocurrency.getQuote().getUsd().getMarketCap(),
                 cryptocurrency.getQuote().getUsd().getVolume24h(),
-                cryptocurrency.getMaxSupply()
+                cryptocurrency.getMaxSupply(),
+                null
         );
+    }
+
+    private static final String MYSQL_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
+    public static String getCurrentTimestampForMySQL() {
+        LocalDateTime now = LocalDateTime.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(MYSQL_DATE_FORMAT);
+
+        return now.format(formatter);
     }
 }

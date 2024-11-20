@@ -7,9 +7,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -35,13 +34,26 @@ public class TransactionBuy {
     @Column(name = "deal_price", precision = 19, scale = 2)
     private BigDecimal dealPrice;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, insertable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "modified_at", nullable = false)
+    @Column(name = "modified_at", nullable = false, insertable = false)
     private LocalDateTime modifiedAt;
 
-    // Optional: Override toString for easier debugging
+    @Column(name = "is_active", nullable = false)
+    private boolean isActive;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        this.modifiedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.modifiedAt = LocalDateTime.now();
+    }
+
     @Override
     public String toString() {
         return "TransactionBuy{" +

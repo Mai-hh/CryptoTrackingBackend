@@ -34,8 +34,6 @@ public class UserServiceImpl implements UserService {
         if (userRepository.existsByUserId(user.getUserId())) {
             throw new IllegalArgumentException("User ID already exists");
         }
-        user.setCreatedAt(LocalDateTime.now());
-        user.setModifiedAt(LocalDateTime.now());
         return userRepository.save(user);
     }
 
@@ -55,7 +53,6 @@ public class UserServiceImpl implements UserService {
         if (!userRepository.existsById(user.getUserId())) {
             throw new IllegalArgumentException("User not found");
         }
-        user.setModifiedAt(LocalDateTime.now());
         return userRepository.save(user);
     }
 
