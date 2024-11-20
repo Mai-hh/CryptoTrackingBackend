@@ -25,7 +25,7 @@ public class PlaceOrderController {
     PlaceOrderService placeOrderService;
     @PostMapping("/place-order")
     public ResponseEntity PlaceOrder(@RequestBody OrderDTO orderDTO, HttpServletRequest request){
-
+        logger.info("orderDTO:" +orderDTO);
         if(orderDTO.getType()==0){
             logger.info("order type: sell");
             placeOrderService.sell(orderDTO);
