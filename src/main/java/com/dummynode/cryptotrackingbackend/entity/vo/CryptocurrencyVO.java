@@ -29,4 +29,6 @@ public class CryptocurrencyVO {
     private BigDecimal maxSupply;
 
     private String formattedMaxSupply;
+
+    }
 }
