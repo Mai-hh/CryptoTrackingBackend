@@ -3,6 +3,8 @@ package com.dummynode.cryptotrackingbackend.service.impl;
 import com.dummynode.cryptotrackingbackend.entity.dto.OrderDTO;
 import com.dummynode.cryptotrackingbackend.entity.model.User;
 import com.dummynode.cryptotrackingbackend.entity.model.Wallet;
+import com.dummynode.cryptotrackingbackend.entity.vo.BalanceVO;
+import com.dummynode.cryptotrackingbackend.entity.vo.WalletVO;
 import com.dummynode.cryptotrackingbackend.exception.UserNotFoundException;
 import com.dummynode.cryptotrackingbackend.repository.UserRepository;
 import com.dummynode.cryptotrackingbackend.repository.WalletRepository;
@@ -15,7 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -27,6 +31,7 @@ public class WalletServiceImpl implements WalletService {
     private UserRepository userRepository;
     @Autowired
     private WalletRepository walletRepository;
+
     @Override
     @Transactional
     public void buy(OrderDTO orderDTO) {
@@ -76,5 +81,26 @@ public class WalletServiceImpl implements WalletService {
             throw new IllegalArgumentException("Insufficient quantity to sell.");
         }
 
+    }
+
+    public List<WalletVO> getWallet(String userId){
+        logger.info("getting wallet by userId: "+userId);
+        List<WalletVO> walletVOList = new ArrayList<>();
+        List<Map<String, Object>> walletList = walletRepository.findByUserId(userId);
+        for(Map<String,Object> map : walletList){
+            WalletVO walletVO = new WalletVO();
+            walletVO.setSymbol(String.valueOf(map.get("symbol")));
+            walletVO.setQuantity(String.valueOf(map.get("quantity")));
+            walletVO.setAvgCostPerUnit(String.valueOf(map.get("avg_cost_per_unit")));
+            walletVOList.add(walletVO);
+        }
+        return walletVOList;
+    }
+    public BalanceVO getBalance(String userId){
+        User balance= userRepository.findById(userId).orElse(null);
+
+        BalanceVO balanceVO = new BalanceVO();
+        balanceVO.setBalance(String.valueOf(balance.getBalance()));
+        return balanceVO;
     }
 }
