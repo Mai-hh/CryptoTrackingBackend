@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
@@ -29,6 +30,10 @@ public class Wallet {
     @Column(name = "quantity", nullable = false)
     private int quantity;
 
+    @Column(name = "remaining_qty")
+    private int remainQuantity;
+    @Column(name = "cost_per_unit")
+    private BigDecimal costPerUnit;
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
@@ -54,6 +59,8 @@ public class Wallet {
                 ", user=" + user +
                 ", symbol='" + symbol + '\'' +
                 ", quantity=" + quantity +
+                ", remaining_qty=" + remainQuantity +
+                ", cost_per_unit=" + costPerUnit +
                 ", createdAt=" + createdAt +
                 ", modifiedAt=" + modifiedAt +
                 '}';
