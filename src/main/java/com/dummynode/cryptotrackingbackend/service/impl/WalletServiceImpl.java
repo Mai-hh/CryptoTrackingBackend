@@ -1,11 +1,15 @@
 package com.dummynode.cryptotrackingbackend.service.impl;
 
 import com.dummynode.cryptotrackingbackend.entity.dto.OrderDTO;
+import com.dummynode.cryptotrackingbackend.entity.model.TransactionBuy;
+import com.dummynode.cryptotrackingbackend.entity.model.TransactionSell;
 import com.dummynode.cryptotrackingbackend.entity.model.User;
 import com.dummynode.cryptotrackingbackend.entity.model.Wallet;
 import com.dummynode.cryptotrackingbackend.entity.vo.BalanceVO;
 import com.dummynode.cryptotrackingbackend.entity.vo.WalletVO;
 import com.dummynode.cryptotrackingbackend.exception.UserNotFoundException;
+import com.dummynode.cryptotrackingbackend.repository.TransactionBuyRepository;
+import com.dummynode.cryptotrackingbackend.repository.TransactionSellRepository;
 import com.dummynode.cryptotrackingbackend.repository.UserRepository;
 import com.dummynode.cryptotrackingbackend.repository.WalletRepository;
 import com.dummynode.cryptotrackingbackend.service.WalletService;
@@ -31,6 +35,10 @@ public class WalletServiceImpl implements WalletService {
     private UserRepository userRepository;
     @Autowired
     private WalletRepository walletRepository;
+    @Autowired
+    private TransactionBuyRepository transactionBuyRepository;
+    @Autowired
+    private TransactionSellRepository transactionSellRepository;
 
     @Override
     @Transactional
@@ -40,7 +48,7 @@ public class WalletServiceImpl implements WalletService {
         // Find and validate user
         User user = userRepository.findByUserId(orderDTO.getUserId())
                 .orElseThrow(() -> new UserNotFoundException("User not found: " + orderDTO.getUserId()));
-
+        logger.info("user found"+user.getUserId());
         Wallet wallet = new Wallet();
         wallet.setQuantity(orderDTO.getQuantity());
         wallet.setUser(user);
@@ -52,6 +60,15 @@ public class WalletServiceImpl implements WalletService {
         logger.info("setted wallet");
         walletRepository.save(wallet);
         logger.info("saved wallet");
+
+        TransactionBuy transactionBuy = new TransactionBuy();
+        transactionBuy.setUser(user);
+        transactionBuy.setSymbol(orderDTO.getSymbol());
+        transactionBuy.setDealPrice(orderDTO.getPrice());
+        transactionBuy.setQuantity(orderDTO.getQuantity());
+        transactionBuy.setCreatedAt(LocalDateTime.now());
+        transactionBuy.setModifiedAt(LocalDateTime.now());
+        transactionBuyRepository.save(transactionBuy);
 
     }
     @Override
@@ -74,12 +91,25 @@ public class WalletServiceImpl implements WalletService {
             wallet.setRemainQuantity(walletAvailable - walletToSell);
             walletRepository.save(wallet);
 
+            TransactionSell transactionSell = new TransactionSell();
+            transactionSell.setUser(user);
+            transactionSell.setSymbol(orderDTO.getSymbol());
+            transactionSell.setDealPrice(orderDTO.getPrice());
+            transactionSell.setQuantity(orderDTO.getQuantity());
+            transactionSell.setCreatedAt(LocalDateTime.now());
+            transactionSell.setModifiedAt(LocalDateTime.now());
+            transactionSellRepository.save(transactionSell);
+
             totalCost = totalCost.add(BigDecimal.valueOf(walletToSell).multiply(wallet.getCostPerUnit()));
             totalSold += walletToSell;
+
+
         }
         if (totalSold < orderDTO.getQuantity()) {
             throw new IllegalArgumentException("Insufficient quantity to sell.");
         }
+
+
 
     }
 

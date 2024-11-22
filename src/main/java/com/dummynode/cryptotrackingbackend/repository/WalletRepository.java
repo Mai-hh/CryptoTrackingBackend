@@ -20,7 +20,7 @@ public interface WalletRepository extends JpaRepository<Wallet, Long> {
 
 
     @Query(value = "SELECT * \n" +
-            "FROM crypto_tracking.wallet \n" +
+            "FROM crypto_tracking.users_wallet \n" +
             "WHERE user_id = :userId AND symbol = :symbol AND remaining_qty > 0 \n" +
             "ORDER BY created_at ASC",nativeQuery = true)
     List<Wallet> findByUserIdAndSymbol(String userId, String symbol);
@@ -29,7 +29,7 @@ public interface WalletRepository extends JpaRepository<Wallet, Long> {
             "    symbol,\n" +
             "    SUM(remaining_qty) AS quantity,\n" +
             "    ROUND(SUM(remaining_qty * cost_per_unit) / SUM(remaining_qty),2) AS avg_cost_per_unit\n" +
-            "FROM crypto_tracking.wallet\n" +
+            "FROM crypto_tracking.users_wallet\n" +
             "WHERE user_id = :userId AND remaining_qty > 0\n" +
             "GROUP BY symbol",nativeQuery = true)
     List<Map<String, Object>> findByUserId(String userId);

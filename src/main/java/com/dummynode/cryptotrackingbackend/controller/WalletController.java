@@ -4,6 +4,7 @@ import com.dummynode.cryptotrackingbackend.entity.dto.OrderDTO;
 import com.dummynode.cryptotrackingbackend.entity.dto.UserDTO;
 import com.dummynode.cryptotrackingbackend.entity.vo.BalanceVO;
 import com.dummynode.cryptotrackingbackend.entity.vo.WalletVO;
+import com.dummynode.cryptotrackingbackend.service.ApiResponse;
 import com.dummynode.cryptotrackingbackend.service.PlaceOrderService;
 import com.dummynode.cryptotrackingbackend.service.WalletService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -39,19 +40,29 @@ public class WalletController {
             return new ResponseEntity<>(HttpStatus.OK);
         }
         @PostMapping("/wallet/info")
-        public ResponseEntity<List<WalletVO>> GetWallet(@RequestBody UserDTO userDTO, HttpServletRequest request) {
+        public ResponseEntity<ApiResponse<List<WalletVO>>> GetWallet(@RequestBody UserDTO userDTO, HttpServletRequest request) {
 
             List<WalletVO> res = walletService.getWallet(userDTO.getUserId());
-
-            return new ResponseEntity<>(res,HttpStatus.OK);
+            ApiResponse<List<WalletVO>> apiResponse = new ApiResponse<>(
+                    200,
+                    "OK",
+                    res,
+                    null
+            );
+            return new ResponseEntity<>(apiResponse, HttpStatus.OK);
         }
 
         @PostMapping("/balance")
-        public ResponseEntity<BalanceVO> GetBalance(@RequestBody UserDTO userDTO, HttpServletRequest request) {
+        public ResponseEntity< ApiResponse<BalanceVO>> GetBalance(@RequestBody UserDTO userDTO, HttpServletRequest request) {
 
             BalanceVO res = walletService.getBalance(userDTO.getUserId());
-
-            return new ResponseEntity<>(res,HttpStatus.OK);
+            ApiResponse<BalanceVO> apiResponse = new ApiResponse<>(
+                    200,
+                    "OK",
+                    res,
+                    null
+            );
+            return new ResponseEntity<>(apiResponse,HttpStatus.OK);
         }
     }
 

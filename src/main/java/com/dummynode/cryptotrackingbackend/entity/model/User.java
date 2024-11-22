@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "users_balance")
 public class User {
-
     @Id
     @Column(name = "user_id", length = 29, nullable = false, unique = true)
     private String userId;
