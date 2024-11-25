@@ -61,6 +61,14 @@ public class WalletServiceImpl implements WalletService {
         walletRepository.save(wallet);
         logger.info("saved wallet");
 
+        logger.info("calculate new balance for buy");
+        BigDecimal balance = user.getBalance();
+        BigDecimal cost = orderDTO.getPrice().multiply(BigDecimal.valueOf(orderDTO.getQuantity()));
+        balance = balance.subtract(cost);
+        user.setBalance(balance);
+        userRepository.save(user);
+        logger.info("saved new balance");
+
         TransactionBuy transactionBuy = new TransactionBuy();
         transactionBuy.setUser(user);
         transactionBuy.setSymbol(orderDTO.getSymbol());
@@ -90,6 +98,14 @@ public class WalletServiceImpl implements WalletService {
             //update remaining quantity
             wallet.setRemainQuantity(walletAvailable - walletToSell);
             walletRepository.save(wallet);
+
+            logger.info("calculate new balance for sell");
+            BigDecimal balance = user.getBalance();
+            BigDecimal cost = orderDTO.getPrice().multiply(BigDecimal.valueOf(orderDTO.getQuantity()));
+            balance = balance.add(cost);
+            user.setBalance(balance);
+            userRepository.save(user);
+            logger.info("saved new balance");
 
             TransactionSell transactionSell = new TransactionSell();
             transactionSell.setUser(user);
